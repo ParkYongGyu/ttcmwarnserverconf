@@ -17,7 +17,7 @@
 --><!-- Note:  A "Server" is not itself a "Container", so you may not
      define subcomponents such as "Valves" at this level.
      Documentation at /docs/config/server.html
- --><Server port="8005" shutdown="SHUTDOWN">
+ --><Server port="8105" shutdown="SHUTDOWN">
   <Listener className="org.apache.catalina.startup.VersionLoggerListener"/>
   <!-- Security listener. Documentation at /docs/config/listeners.html
   <Listener className="org.apache.catalina.security.SecurityListener" />
@@ -60,7 +60,7 @@
          APR (HTTP/AJP) Connector: /docs/apr.html
          Define a non-SSL/TLS HTTP/1.1 Connector on port 8080
     -->
-    <Connector URIEncoding="UTF-8" connectionTimeout="20000" port="8080" protocol="HTTP/1.1" redirectPort="8443"/>
+    <Connector connectionTimeout="20000" port="8180" protocol="HTTP/1.1" redirectPort="8443"/>
     <!-- A "Connector" using the shared thread pool-->
     <!--
     <Connector executor="tomcatThreadPool"
@@ -80,7 +80,7 @@
     -->
 
     <!-- Define an AJP 1.3 Connector on port 8009 -->
-    <Connector port="8009" protocol="AJP/1.3" redirectPort="8443"/>
+    <Connector port="8109" protocol="AJP/1.3" redirectPort="8443"/>
 
 
     <!-- An Engine represents the entry point (within Catalina) that processes
@@ -124,11 +124,15 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
+      <Context docBase="gsottcm" path="/gsottcm" reloadable="true" source="org.eclipse.jst.jee.server:gsottcm">
+               
+               <Resource name="jdbc/SupertaimoBrokerDB" auth="Container" type="javax.sql.DataSource"
+               maxTotal="100" maxIdle="30" maxWaitMillis="10000"
+               username="supertaimodbuser" password="pwdreplication15!%" driverClassName="com.mysql.jdbc.Driver"
+               url="jdbc:mysql://stifxbrokers.cc6a9ppwlqft.ap-southeast-1.rds.amazonaws.com:3306/sti_warn"/>
       
-      <Context docBase="ttcmwarnweb" path="/ttcmwarnweb" reloadable="true" source="org.eclipse.jst.jee.server:ttcmwarnweb">
-                        <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxIdle="30" maxTotal="100" maxWaitMillis="10000" name="jdbc/SupertaimoBrokerDB" password="pwdreplication15!%" type="javax.sql.DataSource" url="jdbc:mysql://stifxbrokers.cc6a9ppwlqft.ap-southeast-1.rds.amazonaws.com:3306/sti_warn" username="supertaimodbuser"/>
-                        <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxIdle="30" maxTotal="100" maxWaitMillis="10000" name="jdbc/ReplicateDB" password="pwdtraderstrust0113" type="javax.sql.DataSource" url="jdbc:mysql://replicatedttdb.cc6a9ppwlqft.ap-southeast-1.rds.amazonaws.com:3306/report_live" username="traderstrust"/>      
-      </Context></Host>
-    </Engine>
+      </Context>
+      </Host>
+          </Engine>
   </Service>
 </Server>
