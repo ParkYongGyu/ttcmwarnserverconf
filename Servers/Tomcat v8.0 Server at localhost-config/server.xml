@@ -133,7 +133,7 @@
                         <Resource name="jdbc/ReplicateDB" auth="Container" type="javax.sql.DataSource"
                maxTotal="100" maxIdle="30" maxWaitMillis="10000"
                username="traderstrust" password="pwdtraderstrust0113" driverClassName="com.mysql.jdbc.Driver"
-               url="jdbc:mysql://52.76.242.71:3306/report_live"/>      
+               url="jdbc:mysql://replicatedttdb.cc6a9ppwlqft.ap-southeast-1.rds.amazonaws.com:3306/report_live"/>      
       </Context>
       </Host>
     </Engine>
